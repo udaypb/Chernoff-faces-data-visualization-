@@ -1,0 +1,97 @@
+body,
+html {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+.gradient {
+  background: #1e343e;
+  /* Old browsers */
+  background: linear-gradient(to right, #1e343e 10%, #1e343e 49%, #122630 50%, #122630 100%, #2989d8 100%, #207cca 100%, #122630 100%);
+  /* W3C */
+}
+.wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+.bottle {
+  position: relative;
+  width: 50px;
+  height: 150px;
+  border-radius: 20px 20px 3px 3px;
+  z-index: 5;
+  background: #1e343e;
+  /* Old browsers */
+  background: linear-gradient(to right, #1e343e 10%, #1e343e 49%, #122630 50%, #122630 100%, #2989d8 100%, #207cca 100%, #122630 100%);
+  /* W3C */
+}
+.bottle:before {
+  position: absolute;
+  top: -45px;
+  left: 15px;
+  width: 20px;
+  height: 60px;
+  background: #1e343e;
+  /* Old browsers */
+  background: linear-gradient(to right, #1e343e 10%, #1e343e 49%, #122630 50%, #122630 100%, #2989d8 100%, #207cca 100%, #122630 100%);
+  /* W3C */
+  border-radius: 2px 2px 0 0;
+  content: "";
+}
+.bottle:after {
+  position: absolute;
+  top: -42px;
+  left: 13px;
+  width: 24px;
+  height: 10px;
+  background: #1e343e;
+  /* Old browsers */
+  background: linear-gradient(to right, #1e343e 10%, #1e343e 49%, #122630 50%, #122630 100%, #2989d8 100%, #207cca 100%, #122630 100%);
+  /* W3C */
+  border-radius: 2px;
+  content: "";
+}
+.bottle .label {
+  position: absolute;
+  top: 20px;
+  left: 5px;
+  width: 40px;
+  height: 75px;
+  background-color: #fff;
+}
+.bottle .label:before {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px 20px 0 0;
+  background-color: #ff9900;
+  content: "";
+}
+.bottle .label:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 40px;
+  height: 3px;
+  background-color: #ff9900;
+  content: "";
+}
+.bottle .shadow {
+  position: absolute;
+  bottom: -7px;
+  left: -10px;
+  width: 70px;
+  height: 15px;
+  border-radius: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}

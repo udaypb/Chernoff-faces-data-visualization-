@@ -1,0 +1,613 @@
+<html>
+
+<head>
+
+    <link type="stylesheet" href="./style.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        body,
+        html {
+            position: relative;
+            margin: 0 auto;
+            padding: 0;
+            width: 90%;
+            height: 100%;
+
+        }
+
+        .gradient {
+            background: #1e343e;
+            /* Old browsers */
+            background: linear-gradient(to right, #1e343e 10%, #1e343e 49%, #122630 50%, #122630 100%, #2989d8 100%, #207cca 100%, #122630 100%);
+            /* W3C */
+        }
+
+        .wrap {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+
+        .bottle {
+            position: relative;
+            width: 50px;
+            height: 150px;
+            /* max-height: 60px; */
+            min-height: 60px;
+            margin-top: 60px;
+            border-radius: 30px 30px 4px 4px;
+            z-index: 5;
+            background: black;
+            /* Old browsers */
+            /* background: linear-gradient(to right, #1e343e 10%, #1e343e 49%, #122630 50%, #122630 100%, #2989d8 100%, #207cca 100%, #122630 100%); */
+            /* W3C */
+        }
+
+        .bottle:before {
+            position: absolute;
+            top: -45px;
+            left: 15px;
+            width: 20px;
+            height: 60px;
+            background: grey;
+            /* Old browsers */
+            /* background: linear-gradient(to right, #1e343e 10%, #1e343e 49%, #122630 50%, #122630 100%, #2989d8 100%, #207cca 100%, #122630 100%); */
+            /* W3C */
+            border-radius: 2px 2px 0 0;
+            content: "";
+        }
+
+        .bottle .cap {
+            position: absolute;
+            top: -42px;
+            left: 13px;
+            width: 24px;
+            height: 10px;
+            background: #1e343e;
+            /* Old browsers */
+            background: linear-gradient(to right, #1e343e 10%, #1e343e 49%, #122630 50%, #122630 100%, #2989d8 100%, #207cca 100%, #122630 100%);
+            /* W3C */
+            border-radius: 2px;
+            content: "";
+        }
+
+        .bottle .label {
+            position: absolute;
+            top: 30px;
+            left: 5px;
+            width: 40px;
+            height: 75px;
+            border-radius: 30px 30px 4px 4px;
+            background-color: #fff;
+        }
+
+        .bottle .label .labelBefore {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            display: block;
+            width: 40px;
+            height: 40px;
+            border-radius: 20px 20px 0 0;
+            background-color: #ff9900;
+            content: "";
+        }
+
+        .bottle .label .labelAfter {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: block;
+            width: 40px;
+            height: 3px;
+            background-color: #ff9900;
+            content: "";
+        }
+
+        .bottle .shadow {
+            position: absolute;
+            bottom: -7px;
+            left: -25px;
+            width: 100px;
+            height: 40px;
+            border-radius: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 1;
+        }
+
+
+
+
+        .grid {
+            display: grid;
+            grid-gap: 5px;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            grid-auto-rows: 300px;
+        }
+
+        .char {
+            border-radius: 3px;
+            padding: 1em;
+            background-color: white;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h3 style="text-align: center"><u>Chernoff variant - Visualizing Wine dataset using Wine bottle as a chernoff
+            variant</u></h3>
+    <br>
+    <div class="row text-center" style="">
+        <div class="col-md-6">
+            <h3><u>LEGEND:</u></h3>
+            <img src="LEGEND.png" style="width:40%;max-width: 300px;">
+        </div>
+        <div class="col-md-6 text-left">
+            <h4><u>FEATURES:</u></h4>
+            <ul>
+                <li>Feature 1 : Bolt Size</li>
+                <li>Feature 2 : Cap Size</li>
+                <li>Feature 3 : Bottle Height</li>
+                <li>Feature 4 : Liquid Amount</li>
+                <li>Feature 5 : Bottle opacity</li>
+            </ul>
+        </div>
+    </div>
+    <p>Control Panel</p>
+    <div class="" style="position: absolute;background-color: grey;width: 100%;height:10%">
+        <div class="d-inline-block text-center">
+            <label>Feature 1 (Bolt Size)</label>
+
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle boltDropDown" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Dropdown button
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="boltDropDown">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="d-inline-block">
+            <label>Feature 2 (Cap Size)</label>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle capDropDown" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Dropdown button
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="capDropDown">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-inline-block">
+            <label>Feature 3 (Bottle height)</label>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle heightDropDown" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Dropdown button
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="heightDropDown">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="d-inline-block">
+            <label>Feature 4 (Liquid Amount)</label>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle liquidDropDown" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Dropdown button
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="liquidDropDown">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="d-inline-block">
+            <label>Feature 5 (Bottle Opacity)</label>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle opacityDropDown" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Dropdown button
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="opacityDropDown">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <br>
+    <hr>
+    <div class="row" style="position: absolute;margin-top:30px">
+        <div class="d-inline-block">
+            <label>Sort based on:</label>
+            <div class="dropdown1">
+                <button class="btn btn-secondary dropdown-toggle sortDropDown" type="button" id="sortDrop"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    None
+                </button>
+                <div class="dropdown-menu" aria-labelledby="sortDrop" id="sortDropDown">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="d-inline-block">
+                <label>Sort order:</label>
+                <div class="dropdown2">
+                    <button class="btn btn-secondary dropdown-toggle sortOrder" type="button" id="sortOrder"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Ascending
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="sortOrder" id="sortOrderDropDown">
+                        <a class="dropdown-item" href="javascript:sortOrder('asc','Ascending')">Ascending</a>
+                        <a class="dropdown-item" href="javascript:sortOrder('desc','Decending')">Decending</a>
+
+                    </div>
+                </div>
+            </div>
+
+
+    </div>
+
+
+
+    <script src="./js/d3.v4.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+
+
+    <script>
+        let globalRef = {};
+        var heightScale;
+        var globalData;
+        var globalSortOrder='asc';
+        $(function () {
+            heightScale = d3.scaleLinear()
+                .domain([0, 3])
+                .range([0, 100]);
+
+            // boltScale = d3.scale.linear()
+            //     .domain([0, 10000])
+            //     .range([0, 100]);
+
+            // capSize = d3.scale.linear()
+            //     .domain([0, 10000])
+            //     .range([0, 100]);
+
+
+            let gridData = gridDatagenerate();
+
+            d3.csv('wine.csv', function (data) {
+                // console.log(data)
+                grid = d3.select("body")
+                    .append("div")
+                    .attr("id", "grid")
+                    .attr("class", "grid")
+                    .style('padding-top', '100px')
+                    .style('text-align', 'center');
+
+                chars = grid
+                    .selectAll("div")
+                    .data(data)
+                    .enter()
+                    .append("div")
+                    .attr("class", function (d, i) { return "char char-" + i })
+
+
+
+                content = chars
+                    .append("div")
+                    .attr("class", "main")
+                    .style('height', '300px')
+                    .style('width', 'fit-content')
+
+
+
+                $('.main').append(`<div class="bottle"><div class="cap"></div><div class="label"><div class="labelBefore"></div> <div class="labelAfter"></div> </div>
+                    <div class="shadow"></div></div>`);
+                $('.main').prepend('<i class="fa fa-bolt"></i>');
+
+
+                //init dropdown menu and the global dictionary
+                $('.dropdown-menu').empty();
+                let st1 = '';
+                let st2 = '';
+
+                let st3 = '';
+                let st4 = '';
+                let st5 = '';
+                let forSort = '';
+
+                let keys = Object.keys(data[0]);
+                st1 = ` <a class="dropdown-item" href="javascript:modifyGlobalRef('None','bolt','boltDropDown')">None</a>`;
+                st2 = ` <a class="dropdown-item" href="javascript:modifyGlobalRef('None','capSize','capDropDown')">None</a>`;
+                st3 = ` <a class="dropdown-item" href="javascript:modifyGlobalRef('None','height','heightDropDown')">None</a>`;
+                st4 = ` <a class="dropdown-item" href="javascript:modifyGlobalRef('None','liquid','liquidDropDown')">None</a>`;
+                st5 = ` <a class="dropdown-item" href="javascript:modifyGlobalRef('None','opacity','opacityDropDown')">None</a>`;
+                forSort = ` <a class="dropdown-item" href="javascript:sortData('None')">None</a>`;
+
+                keys.map(function (k) {
+                    if (k == 'alcohol') {
+                        globalRef[k] = 'height';
+                        $('.heightDropDown').html(k);
+                    } else if (k == 'flavanoids') {
+                        globalRef[k] = 'bolt';
+                        $('.boltDropDown').html(k);
+                    } else if (k == 'hue') {
+                        globalRef[k] = 'capSize';
+                        $('.capDropDown').html(k);
+                    } else if (k == 'total phenols') {
+                        globalRef[k] = 'liquid';
+                        $('.liquidDropDown').html(k);
+
+                    } else if (k == "color intensity") {
+                        globalRef[k] = 'opacity';
+                        $('.opacityDropDown').html(k);
+                    }
+                    st1 += ` <a class="dropdown-item" href="javascript:modifyGlobalRef('${k}','bolt','boltDropDown')">${k}</a>`;
+                    st2 += ` <a class="dropdown-item" href="javascript:modifyGlobalRef('${k}','capSize','capDropDown')">${k}</a>`;
+                    st3 += ` <a class="dropdown-item" href="javascript:modifyGlobalRef('${k}','height','heightDropDown')">${k}</a>`;
+                    st4 += ` <a class="dropdown-item" href="javascript:modifyGlobalRef('${k}','liquid','liquidDropDown')">${k}</a>`;
+                    st5 += ` <a class="dropdown-item" href="javascript:modifyGlobalRef('${k}','opacity','opacityDropDown')">${k}</a>`;
+                    forSort += ` <a class="dropdown-item" href="javascript:sortData('${k}')">${k}</a>`;
+
+                })
+                $('#boltDropDown').append(st1);
+                $('#capDropDown').append(st2);
+                $('#heightDropDown').append(st3);
+                $('#liquidDropDown').append(st4);
+                $('#opacityDropDown').append(st5);
+                $('#sortDropDown').append(forSort);
+                
+                let sortOrderSt=`<a class="dropdown-item" href="javascript:sortOrder('asc','Ascending')">Ascending</a>
+                        <a class="dropdown-item" href="javascript:sortOrder('desc','Decending')">Decending</a>`;
+
+                $('#sortOrderDropDown').append(sortOrderSt);
+
+
+
+
+
+                globalData = data;
+                modifyDataAttributes();
+
+            });
+
+
+
+
+            //     $('.square').append(`<div class="bottle">
+            //     <div class="label"></div>
+            //     <div class="shadow"></div>
+            // </div>`)
+
+        });
+
+        function sortData(key) {
+            if(key=='None'){
+                return;
+            }
+            $('.sortDropDown').html(key);
+            let lessVal=-1;
+            let moreVal=1;
+            if(globalSortOrder=='desc'){
+                lessVal=1;
+                moreVal=-1
+            }
+            globalData.sort(function (a, b) {
+                var keyA = a[key],
+                    keyB = b[key];
+                // Compare the 2 dates
+                
+                if (keyA < keyB) return lessVal;
+                if (keyA > keyB) return moreVal;
+                return 0;
+            });
+            modifyDataAttributes();
+        }
+
+        function sortOrder(key,name){
+            $('.sortOrder').html(name);
+            globalSortOrder=key;
+            let sortKey=$('.sortDropDown').html();
+            sortData(sortKey);
+        }
+        function setToDefault(id) {
+            let len = id.split(' ').length
+            let label = id.split(' ')[len - 1]
+            // console.log('bringing this to default', label);
+            if (label == 'heightDropDown') {
+                $('.bottle').css('height', '150px');
+                $('.bottle .label').css('height', '75px');
+            } else if (label == 'opacityDropDown') {
+                $('.bottle').css('opacity', 1);
+            } else if (label == 'liquidDropDown') {
+                $('.bottle .labelBefore').css('height', '40px');
+            } else if (label == 'capDropDown') {
+                $('.bottle .cap').css('width', '20px');
+                $('.bottle .cap').css('left', '15px');
+
+            } else if (label == 'boltDropDown') {
+                $('.fa-bolt').css('font-size', '20px');
+
+
+            }
+        }
+        function modifyGlobalRef(key, id, elementID) {
+
+            //set the previous key to None
+            Object.keys(globalRef).forEach(function (k) {
+                if (globalRef[k] == id) {
+                    globalRef[k] = 'None';
+                }
+            });
+            $('.dropdown').each(function (ele) {
+                if ($(this).find('button').html() == key) {
+                    setToDefault($(this).find('button').attr('class'));
+
+                    $(this).find('button').html('None');
+                }
+            });
+
+            $('.' + elementID).html(key);
+            if(key=='None'){
+                setToDefault($('.' + elementID).attr('class'))
+            }
+            // console.log(key)
+            // console.log(id)
+            globalRef[key] = id;
+            modifyDataAttributes();
+        }
+
+        function modifyDataAttributes() {
+            let data = globalData;
+            data.map(function (d, index) {
+                let id = '.char-' + index;
+                Object.keys(globalRef).forEach(function (k) {
+                    if (d[k]) {
+                        let value = parseFloat(d[k]);
+                        let feature = globalRef[k];
+                        if (feature == 'height') {
+                            // console.log(id)
+
+                            let h = $(id).height();
+                            let dataVals = [];
+                            data.forEach((d) => {
+                                dataVals.push(d[k])
+                            })
+                            // console.log('data val s', dataVals)
+                            heightScale = d3.scaleLinear()
+                                .domain([0, d3.max(dataVals)])
+                                .range([50, 160]); // for height
+                            // console.log('changed height to ', heightScale(value) + 'px');
+                            modifyHeight(id, heightScale(value));
+                        } else if (feature == 'bolt') {
+                            let dataVals = [];
+                            data.forEach((d) => {
+                                dataVals.push(d[k])
+                            })
+                            // console.log('data val s', dataVals)
+                            boltScale = d3.scaleLinear()
+                                .domain([0, d3.max(dataVals)])
+                                .range([5, 40]); // for height
+                            $(id).find('.fa-bolt').css('font-size', boltScale(value) + 'px');
+                        } else if (feature == 'capSize') {
+                            let dataVals = [];
+                            data.forEach((d) => {
+                                dataVals.push(d[k])
+                            })
+                            // console.log('data val s', dataVals)
+                            capScale = d3.scaleLinear()
+                                .domain([0, d3.max(dataVals)])
+                                .range([20, 30]); // for capsize
+                            let newW = capScale(value);
+                            let left = newW / 2 - ((newW - 20) / 2) - parseFloat($(id).find('.bottle .cap').css('left'));
+
+                            $(id).find('.bottle .cap').css('width', newW + 'px');
+                            $(id).find('.bottle .cap').css('left', 12 + 'px');
+
+
+
+                        } else if (feature == 'liquid') {
+                            let dataVals = [];
+                            data.forEach((d) => {
+                                dataVals.push(d[k])
+                            })
+                            // console.log('data val s', dataVals);
+                            let bottleHeight = $(id).find('.bottle .label').css('height');
+                            liquidHeight = d3.scaleLinear()
+                                .domain([0, d3.max(dataVals)])
+                                .range([10, parseFloat(bottleHeight) - 10]); // for liquid height
+                            $(id).find('.bottle .labelBefore').css('height', liquidHeight(value) - 5 + 'px');
+
+                        } else if (feature == 'opacity') {
+                            let dataVals = [];
+                            data.forEach((d) => {
+                                dataVals.push(d[k])
+                            })
+                            opacityScale = d3.scaleLinear()
+                                .domain([0, d3.max(dataVals)])
+                                .range([0, 1]); // for liquid height
+                            $(id).find('.bottle').css('opacity', opacityScale(value));
+                        }
+                    }
+                })
+            })
+        }
+        function modifyHeight(id, height) {
+            $(id).find('.bottle').css('height', height + 'px');
+            $(id).find('.bottle .label').css('height', (height * 1 / 2) + 'px');
+
+
+
+        }
+        function gridDatagenerate() {
+            var data = new Array();
+            var xpos = 1; //starting xpos and ypos at 1 so the stroke will show when we make the grid below
+            var ypos = 1;
+            var width = 50;
+            var height = 50;
+
+            // iterate for rows 
+            for (var row = 0; row < 10; row++) {
+                data.push(new Array());
+
+                // iterate for cells/columns inside rows
+                for (var column = 0; column < 10; column++) {
+                    data[row].push({
+                        x: xpos,
+                        y: ypos,
+                        width: width,
+                        height: height
+                    })
+                    // increment the x position. I.e. move it over by 50 (width variable)
+                    xpos += width;
+                }
+                // reset the x position after a row is complete
+                xpos = 1;
+                // increment the y position for the next row. Move it down 50 (height variable)
+                ypos += height;
+            }
+            return data;
+        }
+    </script>
+</body>
+
+
+</html>
